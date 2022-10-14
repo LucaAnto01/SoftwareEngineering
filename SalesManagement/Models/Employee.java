@@ -144,7 +144,7 @@ public class Employee extends Worker
 				break;*/
 			
 			case 1: {
-				
+				editPassword();
 			}
 				break;
 			
@@ -186,6 +186,29 @@ public class Employee extends Worker
 			default: System.out.println("Insert only valid value!"); 
 		}
 
+	}
+	
+	/**
+	 * Method to edit worker password
+	 */
+	protected void editPassword()
+	{
+		String newPassword = "";
+		
+		try
+		{
+			System.out.print("Insert new password: "); 
+			newPassword = Main.sc.nextLine();
+			setPassword(newPassword);
+			
+			System.out.println("Password successluy updated");
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR: update password");
+			e.printStackTrace();
+		}
 	}
 	
 	/**
