@@ -74,6 +74,7 @@ public class Administrator extends Employee
 		functionalities += "7: cancel purchase\n";
 		functionalities += "8: create new Employee\n";
 		functionalities += "9: edit Employee username or password\n";
+		functionalities += "10: delete Employee\n";
 		
 		return functionalities;
 	}
@@ -112,6 +113,14 @@ public class Administrator extends Employee
 						System.out.println("Employee successfully edit!");
 					else
 						System.out.println("Error during edit!"); 
+				}
+					break;
+					
+				case 10: {
+					if(deleteEmployee())
+						System.out.println("Employee successfully deleted!");
+					else
+						System.out.println("Error during delete!"); 
 				}
 					break;
 				
@@ -288,6 +297,45 @@ public class Administrator extends Employee
 						}								
 					}
 				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR: edit Employee username or password");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Method to delete a specific Employee
+	 * @return
+	 */
+	private boolean deleteEmployee()
+	{
+		String usernameIn = "";
+		Employee employeeToDelete = new Employee();
+		
+		try
+		{
+			System.out.print("Insert the username of the Employee to edit: ");
+			usernameIn =  Main.sc.next();
+			
+			if(checkSelectedEmployee(usernameIn))
+			{
+				
+				for (Worker currentEmployee : Main.workerList) //Find Worker to delete
+					if(currentEmployee instanceof Employee)
+						if(currentEmployee.getUsername().equals(usernameIn))
+							employeeToDelete = (Employee) currentEmployee;		
+				
+				if(!employeeToDelete.getUsername().equals("")) //Check if object has value
+				{
+					Main.workerList.remove(employeeToDelete);
+					return true;
+				}									
 			}
 		}
 		
