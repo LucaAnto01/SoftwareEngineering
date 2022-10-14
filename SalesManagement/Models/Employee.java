@@ -60,7 +60,7 @@ public class Employee extends Worker
 	/**
 	 * Empty constructor method
 	 */
-	public Employee() {super();}	
+	public Employee() {}	
 	
 	/*----- GETTERS & SETTERS -----*/
 	/**
@@ -87,8 +87,7 @@ public class Employee extends Worker
 	@Override
 	public String getFunctionalities() 
 	{
-		String functionalities = "Welcome!\n"
-				   + "Please, select what you want to do:\n";
+		String functionalities = "Please, select what you want to do:\n";
 
 		functionalities += "0: logout\n";
 		functionalities += "1: edit password\n";
@@ -197,6 +196,7 @@ public class Employee extends Worker
 		
 		try
 		{
+			Main.sc.nextLine();
 			System.out.print("Insert new password: "); 
 			newPassword = Main.sc.nextLine();
 			setPassword(newPassword);

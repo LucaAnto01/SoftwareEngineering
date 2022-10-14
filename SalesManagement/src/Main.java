@@ -13,52 +13,119 @@ public class Main
 	/*----- ATTRIBUTES -----*/
 	public static Scanner sc = new Scanner(System.in).useLocale(Locale.US);
 	public static List<Client> clientList = new ArrayList<Client>();
+	public static List<Worker> workerList = new ArrayList<Worker>();
 	public static int purchaseId = 0;
-	private static Employee employee = new Employee("Employee pippo", "Pippo", "Pluto");
-	private static Administrator administrator = new Administrator("Employee pippo", "Pippo", "Pluto");
+	private static Worker loggedInWorker;
 	
 	/**
 	 * Method to execute the management action, in accord with selected mode
 	 */
-	public static void management(char inMode)
+	public static void management()
 	{
 		int enMode = -1;
 		boolean terminate = false;
 		
-		while(!terminate)
+		try
 		{
-			if((inMode == 'E') || (inMode == 'e'))
-				System.out.println(employee.getFunctionalities());
-			
-			else if((inMode == 'A') || (inMode == 'a'))
-				System.out.println(administrator.getFunctionalities());
-			
-			try
+			while(!terminate)
 			{
-				System.out.print("Select action: ");
-				enMode = sc.nextInt();
+				System.out.println(loggedInWorker.getFunctionalities());
+				
+				try
+				{
+					System.out.print("Select action: ");
+					enMode = sc.nextInt();
+				}
+				
+				catch (Exception e)
+		        {
+					System.out.println("ERROR: input char");
+					e.printStackTrace();
+		        }
+				
+				if(enMode == 0)
+					terminate = true;
+				
+				else
+					loggedInWorker.doFunctionality(enMode);
 			}
-			
-			catch (Exception e)
-	        {
-				System.out.println("ERROR: input char");
-				e.printStackTrace();
-	        }
-			
-			if(enMode == 0)
-				terminate = true;
-			
-			else if((inMode == 'E') || (inMode == 'e'))
-				employee.doFunctionality(enMode);
-		
-			else if((inMode == 'A') || (inMode == 'a'))
-				administrator.doFunctionality(enMode);
 		}
+				
+		catch (Exception e)
+        {
+			System.out.println("ERROR: input char");
+			e.printStackTrace();
+        }
 	}
 	
-	public static void administratorManagement()
+	/**
+	 * Method to execute the login
+	 */
+	public static void doLogin()
 	{
+		String username = "";
+		String password = "";
+		boolean success = false;
 		
+		try
+		{
+			while(!success)
+			{
+				//Main.sc.nextLine();
+				System.out.print("Insert your username: ");
+				username = Main.sc.next();
+				Main.sc.nextLine();
+				System.out.print("Insert password for " + username + ": ");
+				password = Main.sc.nextLine();
+				
+				if(checkWorker(username, password))
+				{
+					success = true;
+					System.out.println("Login successfully! Welcome " + loggedInWorker.getName());
+				}
+				
+				else
+					System.out.println("Invalid username or password, please, retry.");
+			}	
+		}
+				
+		catch (Exception e)
+        {
+			System.out.println("ERROR: string input");
+			e.printStackTrace();
+        }
+	}
+	
+	/**
+	 * Method to check the value of username and password for login
+	 * @param username
+	 * @param password
+	 * @return
+	 */
+	private static boolean checkWorker(String username, String password)
+	{
+		boolean exist = false;
+		
+		try
+		{
+			for (Worker currentWorker : workerList)
+			{
+				if((currentWorker.getUsername().equals(username)) && (currentWorker.getPassword().equals(password)))
+				{
+					exist = true;
+					loggedInWorker = currentWorker;
+					break;
+				}
+			}
+		}
+		
+		catch (Exception e)
+        {
+			System.out.println("ERROR: check worker");
+			e.printStackTrace();
+        }
+		
+		return exist;
 	}
 
 	public static void main(String[] args) 
@@ -78,15 +145,21 @@ public class Main
 		clientList.add(client1);
 		clientList.add(client2);
 		
+		Employee employee = new Employee("emp_paperino", "paperino", "Paperino", "Dei Paperi");
+		Administrator administrator = new Administrator("admin_paperone", "apaperone", "Paperone", "De Paperoni");
+		workerList.add(employee);
+		workerList.add(administrator);
+		
+		
 		System.out.println("SIMPLE SALES MANAGEMENT");
 		
 		while(!terminate)
 		{		
 			try
 			{
-				System.out.println("Insert X to terminate the program");
-				System.out.print("Choose management mode: E for employee, A for administrator: ");
-				enMode = sc.next().charAt(0);	
+				doLogin();				
+				System.out.print("Insert X to terminate the program or insert S to see your command palettes: ");
+				enMode = sc.next().charAt(0);
 			}
 			
 			catch (Exception e)
@@ -98,10 +171,9 @@ public class Main
 			//Terminate the program
 			if((enMode == 'X') || (enMode == 'x'))
 				terminate = true;				
-				
-			//Employee is selected
-			else if((enMode == 'E') || (enMode == 'e') || (enMode == 'A') || (enMode == 'a'))
-				management(enMode);
+			
+			else if((enMode == 'S') || (enMode == 's'))
+				management();
 			
 			else
 				System.out.println("Please, enter a valid execution parameter");

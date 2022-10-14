@@ -100,8 +100,20 @@ public class Administrator extends Employee
 					break;
 				
 				case 8: {
-					ceateEmployee();
+					if(ceateEmployee())
+						System.out.println("Employee successfully created!");
+					else
+						System.out.println("Error during creation!"); 
 				}
+					break;
+				
+				case 9: {
+					if(editEmployee())
+						System.out.println("Employee successfully edit!");
+					else
+						System.out.println("Error during edit!"); 
+				}
+					break;
 				
 				default: System.out.println("Insert only valid value!"); 
 			}
@@ -219,5 +231,96 @@ public class Administrator extends Employee
 		}
 		
 		return false;
+	}
+	
+	/**
+	 * Method to edit username or password of a specific Employee
+	 * @return
+	 */
+	private boolean editEmployee()
+	{
+		char enMode = 'X';
+		String usernameIn = "";
+		
+		try
+		{
+			System.out.print("Insert the username of the Employee to edit: ");
+			usernameIn =  Main.sc.next();
+			
+			if(checkSelectedEmployee(usernameIn))
+			{
+				String newValue = "";
+				
+				System.out.print("Insert U to edit Employee username, P to edit Employee password or R to reset password to CHANGE value: ");
+				enMode = Main.sc.next().charAt(0);
+				
+				for (Worker currentEmployee : Main.workerList)
+				{
+					if(currentEmployee instanceof Employee)
+					{
+						if(currentEmployee.getUsername().equals(usernameIn))
+						{
+							if((enMode == 'U') || (enMode == 'u'))
+							{
+								Main.sc.nextLine();
+								System.out.print("Insert new username value: ");
+								newValue =  Main.sc.nextLine();
+								currentEmployee.setUsername(newValue);
+								
+								return true;
+							}
+							
+							else if((enMode == 'P') || (enMode == 'p'))
+							{
+								Main.sc.nextLine();
+								System.out.print("Insert new passowrd value: ");
+								newValue =  Main.sc.nextLine();
+								currentEmployee.setPassword(newValue);
+								
+								return true;
+							}
+							
+							else if((enMode == 'R') || (enMode == 'r'))
+							{
+								currentEmployee.setPassword("CHANGE");								
+								return true;
+							}
+						}								
+					}
+				}
+			}
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR: edit Employee username or password");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Method to check the existence a specific Employee search for username
+	 * @param username
+	 * @return
+	 */
+	private boolean checkSelectedEmployee(String username)
+	{
+		boolean exist = false;
+		
+		for (Worker currentEmployee : Main.workerList)
+		{
+			if(currentEmployee instanceof Employee) //Check if the Worker is a Employee
+			{
+				if(currentEmployee.getUsername().equals(username)) //Check username
+				{
+					exist = true;
+					break;
+				}								
+			}
+		}
+		
+		return exist;
 	}
 }
