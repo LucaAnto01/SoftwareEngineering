@@ -91,11 +91,12 @@ public class Employee extends Worker
 				   + "Please, select what you want to do:\n";
 
 		functionalities += "0: logout\n";
-		functionalities += "1: add new client\n";
-		functionalities += "2: edit client\n";
-		functionalities += "3: show client purchases\n";
-		functionalities += "4: add new client purchase and payment\n";
-		functionalities += "5: show clients list\n";
+		functionalities += "1: edit password\n";
+		functionalities += "2: add new client\n";
+		functionalities += "3: edit client\n";
+		functionalities += "4: show client purchases\n";
+		functionalities += "5: add new client purchase and payment\n";
+		functionalities += "6: show clients list\n";
 		
 		return functionalities;
 	}
@@ -143,6 +144,11 @@ public class Employee extends Worker
 				break;*/
 			
 			case 1: {
+				
+			}
+				break;
+			
+			case 2: {
 				if(addNewClient())
 				{
 					System.out.println("Client successfully added!"); 
@@ -154,7 +160,7 @@ public class Employee extends Worker
 			}
 				break;
 				
-			case 2: {
+			case 3: {
 				if(editClient())
 					System.out.println("Client successfully modified!"); 
 				else
@@ -162,17 +168,17 @@ public class Employee extends Worker
 			}
 				break;
 				
-			case 3: {
+			case 4: {
 				showClientPurchases();
 			}
 				break;
 				
-			case 4: {
+			case 5: {
 				addPurchaseAndPayment();
 			}
 				break;
 				
-			case 5: {
+			case 6: {
 				showClientsList();
 			}			
 				break;
