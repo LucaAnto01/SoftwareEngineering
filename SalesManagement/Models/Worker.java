@@ -6,6 +6,7 @@ public abstract class Worker
 {
 	/*----- ATTRIBUTES -----*/
 	private String username;
+	private String password;
 	private String name;
 	private String surname;
 	
@@ -13,12 +14,14 @@ public abstract class Worker
 	/**
 	 * Constructor method
 	 * @param username
+	 * @param password
 	 * @param name
 	 * @param surname
 	 */
-	protected Worker(String username, String name, String surname) 
+	protected Worker(String username, String password, String name, String surname) 
 	{
 		this.username = username;
+		this.password = password;
 		this.name = name;
 		this.surname = surname;
 	}
@@ -45,6 +48,22 @@ public abstract class Worker
 		this.username = username;
 	}
 	
+	/**
+	 * @return the password
+	 */
+	public String getPassword() 
+	{
+		return password;
+	}
+
+	/**
+	 * @param password the password to set
+	 */
+	public void setPassword(String password) 
+	{
+		this.password = password;
+	}
+
 	/**
 	 * @return the name
 	 */

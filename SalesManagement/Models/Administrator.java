@@ -14,27 +14,30 @@ public class Administrator extends Employee
 	/**
 	 * Constructor method
 	 * @param username
+	 * @param password
 	 * @param name
 	 * @param surname
 	 * @param registeredClients
 	 * @param registeredPayments
 	 * @param cancelledPurchases
 	 */
-	public Administrator(String username, String name, String surname, int registeredClients, int registeredPayments, int cancelledPurchases) 
+	public Administrator(String username, String password, String name, String surname, int registeredClients, int registeredPayments, int cancelledPurchases) 
 	{
-		super(username, name, surname, registeredClients, registeredPayments);
+		super(username, password, name, surname, registeredClients, registeredPayments);
 		this.cancelledPurchases = cancelledPurchases;
 	}
 
 	/**
 	 * Constructor method
 	 * @param username
+	 * @param username
+	 * @param password
 	 * @param name
 	 * @param surname
 	 */
-	public Administrator(String username, String name, String surname) 
+	public Administrator(String username, String password, String name, String surname) 
 	{
-		super(username, name, surname);
+		super(username, password, name, surname);
 		this.cancelledPurchases = 0;
 	}
 

@@ -30,14 +30,15 @@ public class Employee extends Worker
 	/**
 	 * Constructor method
 	 * @param username
+	 * @param password
 	 * @param name
 	 * @param surname
 	 * @param registeredClients
 	 * @param registeredPayments
 	 */
-	public Employee(String username, String name, String surname, int registeredClients, int registeredPayments) 
+	public Employee(String username, String password, String name, String surname, int registeredClients, int registeredPayments) 
 	{
-		super(username, name, surname);
+		super(username, password, name, surname);
 		this.registeredClients = registeredClients;
 		this.registeredPayments = registeredPayments;
 	}
@@ -45,12 +46,13 @@ public class Employee extends Worker
 	/**
 	 * Constructor method
 	 * @param username
+	 * @param password
 	 * @param name
 	 * @param surname
 	 */
-	public Employee(String username, String name, String surname) 
+	public Employee(String username, String password, String name, String surname) 
 	{
-		super(username, name, surname);
+		super(username, password, name, surname);
 		this.registeredClients = 0;
 		this.registeredPayments = 0;
 	}
