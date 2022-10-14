@@ -71,7 +71,9 @@ public class Administrator extends Employee
 	public String getFunctionalities() 
 	{
 		String functionalities = super.getFunctionalities();
-		functionalities += "6: cancel purchase\n";
+		functionalities += "7: cancel purchase\n";
+		functionalities += "8: create new Employee\n";
+		functionalities += "9: edit Employee username or password\n";
 		
 		return functionalities;
 	}
@@ -85,14 +87,25 @@ public class Administrator extends Employee
 	@Override
 	public void doFunctionality(int fnc) 
 	{
-		if(fnc <= 5) //Do employee functionality
+		if(fnc <= 6) //Do employee functionality
 			super.doFunctionality(fnc);
 		
-		else if(fnc == 6)
-			purchaseCancellation();
-			
 		else
-			System.out.println("Insert only valid value!"); 
+		{
+			switch(fnc)
+			{
+				case 7: {
+					purchaseCancellation();
+				}
+					break;
+				
+				case 8: {
+					ceateEmployee();
+				}
+				
+				default: System.out.println("Insert only valid value!"); 
+			}
+		}			
 	}
 	
 	/**
@@ -159,5 +172,52 @@ public class Administrator extends Employee
 	private void makeRepayment()
 	{
 		System.out.println("Repayment succefully execute!");
+	}
+	
+	/**
+	 * Method to create a new Employee
+	 * @return
+	 */
+	private boolean ceateEmployee()
+	{
+		String tmpIn = "";
+		
+		try
+		{
+			Employee newEmployee = new Employee();
+			
+			//Insert username
+			System.out.print("Insert employee username: "); 
+			tmpIn = Main.sc.next();
+			newEmployee.setUsername(tmpIn);
+			
+			//Insert password
+			System.out.print("Insert employee password: "); 
+			tmpIn = Main.sc.next();
+			newEmployee.setPassword(tmpIn);
+			
+			//Insert name
+			System.out.print("Insert employee name: "); 
+			tmpIn = Main.sc.next();
+			newEmployee.setName(tmpIn);
+			
+			//Insert surname
+			System.out.print("Insert employee surname: "); 
+			tmpIn = Main.sc.next();
+			newEmployee.setSurname(tmpIn);
+			
+			//Adding new Employee to the worker list
+			Main.workerList.add(newEmployee);
+			
+			return true;
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR: create Employee");
+			e.printStackTrace();
+		}
+		
+		return false;
 	}
 }
