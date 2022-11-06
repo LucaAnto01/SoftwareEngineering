@@ -14,6 +14,7 @@ public class Main
 	public static Scanner sc = new Scanner(System.in).useLocale(Locale.US);
 	public static List<Client> clientList = new ArrayList<Client>();
 	public static List<Worker> workerList = new ArrayList<Worker>();
+	public static List<Product> productList = new ArrayList<Product>();
 	public static int purchaseId = 0;
 	private static Worker loggedInWorker;
 	
@@ -134,10 +135,14 @@ public class Main
 		boolean terminate = false;
 		
 		/*Test attributes*/
+		Product product1 = new Product("Pen", "Stabilo", 0.99);
+		Product product2 = new Product("Screen", "LG", 150.99);
+		productList.add(product1);
+		productList.add(product2);
 		Client client1 = new Client("Pippo", "surnamepippo", "123pipposur", "Mountain street 11");
-		Purchase purchase1 = new Purchase(purchaseId, "Key", "Product key", 11.11, LocalDateTime.now());
+		Purchase purchase1 = new Purchase(purchaseId, productList.get(0), 11.11, LocalDateTime.now());
 		purchaseId++;
-		Purchase purchase2 = new Purchase(purchaseId, "Car", "Ferrari", 500000.11, LocalDateTime.now());
+		Purchase purchase2 = new Purchase(purchaseId, productList.get(1), 500000.11, LocalDateTime.now());
 		purchaseId++;
 		client1.insertNewPurchase(purchase1);
 		client1.insertNewPurchase(purchase2);
