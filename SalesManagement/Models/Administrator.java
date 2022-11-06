@@ -71,10 +71,10 @@ public class Administrator extends Employee
 	public String getFunctionalities() 
 	{
 		String functionalities = super.getFunctionalities();
-		functionalities += "7: cancel purchase\n";
-		functionalities += "8: create new Employee\n";
-		functionalities += "9: edit Employee username or password\n";
-		functionalities += "10: delete Employee\n";
+		functionalities += "9: cancel purchase\n";
+		functionalities += "10: create new Employee\n";
+		functionalities += "11: edit Employee username or password\n";
+		functionalities += "12: delete Employee\n";
 		
 		return functionalities;
 	}
@@ -88,19 +88,19 @@ public class Administrator extends Employee
 	@Override
 	public void doFunctionality(int fnc) 
 	{
-		if(fnc <= 6) //Do employee functionality
+		if(fnc <= 8) //Do employee functionality
 			super.doFunctionality(fnc);
 		
 		else
 		{
 			switch(fnc)
 			{
-				case 7: {
+				case 9: {
 					purchaseCancellation();
 				}
 					break;
 				
-				case 8: {
+				case 10: {
 					if(ceateEmployee())
 						System.out.println("Employee successfully created!");
 					else
@@ -108,7 +108,7 @@ public class Administrator extends Employee
 				}
 					break;
 				
-				case 9: {
+				case 11: {
 					if(editEmployee())
 						System.out.println("Employee successfully edit!");
 					else
@@ -116,7 +116,7 @@ public class Administrator extends Employee
 				}
 					break;
 					
-				case 10: {
+				case 12: {
 					if(deleteEmployee())
 						System.out.println("Employee successfully deleted!");
 					else

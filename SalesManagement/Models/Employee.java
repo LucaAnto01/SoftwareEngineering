@@ -91,11 +91,13 @@ public class Employee extends Worker
 
 		functionalities += "0: logout\n";
 		functionalities += "1: edit password\n";
-		functionalities += "2: add new client\n";
-		functionalities += "3: edit client\n";
-		functionalities += "4: show client purchases\n";
-		functionalities += "5: add new client purchase and payment\n";
-		functionalities += "6: show clients list\n";
+		functionalities += "2: add new product\n";
+		functionalities += "3: show product list\n";
+		functionalities += "4: add new client\n";
+		functionalities += "5: edit client\n";
+		functionalities += "6: show client purchases\n";
+		functionalities += "7: add new client purchase and payment\n";
+		functionalities += "8: show clients list\n";
 		
 		return functionalities;
 	}
@@ -148,6 +150,23 @@ public class Employee extends Worker
 				break;
 			
 			case 2: {
+				if(addNewProduct())
+				{
+					System.out.println("Product successfully added!"); 
+					registeredClients++;
+				}
+					
+				else
+					System.out.println("Error during insertion!");
+			}
+				break;
+				
+			case 3: {
+				showProductList();
+			}
+				break;
+			
+			case 4: {
 				if(addNewClient())
 				{
 					System.out.println("Client successfully added!"); 
@@ -159,7 +178,7 @@ public class Employee extends Worker
 			}
 				break;
 				
-			case 3: {
+			case 5: {
 				if(editClient())
 					System.out.println("Client successfully modified!"); 
 				else
@@ -167,17 +186,17 @@ public class Employee extends Worker
 			}
 				break;
 				
-			case 4: {
+			case 6: {
 				showClientPurchases();
 			}
 				break;
 				
-			case 5: {
+			case 7: {
 				addPurchaseAndPayment();
 			}
 				break;
 				
-			case 6: {
+			case 8: {
 				showClientsList();
 			}			
 				break;
@@ -209,6 +228,63 @@ public class Employee extends Worker
 			System.out.println("ERROR: update password");
 			e.printStackTrace();
 		}
+	}
+	
+	/**
+	 * Method to add a new product
+	 * @return
+	 */
+	protected boolean addNewProduct()
+	{
+		try
+		{
+			String tmpIn = "";
+			Product newProd = new Product();
+			double cost = -1.1;
+			
+			//Insert name
+			System.out.print("Insert product name: "); 
+			tmpIn = Main.sc.next();
+			newProd.setName(tmpIn);
+			
+			//Insert manufacturer
+			System.out.print("Insert product manufacturer: "); 
+			tmpIn = Main.sc.next();
+			newProd.setManufacturer(tmpIn);
+			
+			//Insert cost
+			System.out.print("Insert product cost: "); 
+			cost = Main.sc.nextDouble();
+			newProd.setCost(cost);
+			
+			Main.productList.add(newProd);
+			
+			return true;
+		}
+		
+		catch(Exception e)
+		{
+			System.out.println("ERROR: add client");
+			e.printStackTrace();
+		}
+		
+		return false;
+	}
+	
+	/**
+	 * Method to print the products' list
+	 */
+	protected void showProductList()
+	{
+		if(!Main.productList.isEmpty())
+		{
+			System.out.println("List of products:");
+			for (Product currentProduct : Main.productList)
+				System.out.println("\t" + currentProduct.toString());				
+		}
+		
+		else
+			System.out.println("Product list is empty");
 	}
 	
 	/**
@@ -379,21 +455,28 @@ public class Employee extends Worker
 			
 			if(selectedClient != null)
 			{
-				String product = "";
-				String manufacturer = "";
-				double amount = -1.1;				
+				Product newProd = new Product();
+				String tmpIn = "";
+				double amount = -1.1;
+				double cost = -1.1;
 				
 				Main.sc.nextLine();
 				System.out.print("Insert product name: "); 
-				product = Main.sc.nextLine();
+				tmpIn = Main.sc.nextLine();
+				newProd.setName(tmpIn);
 				
 				System.out.print("Insert product manufacturer: "); 
-				manufacturer = Main.sc.nextLine();
+				tmpIn = Main.sc.nextLine();
+				newProd.setManufacturer(taxCode);
 				
-				System.out.print("Insert amount: "); 
+				System.out.print("Insert product cost: "); 
+				cost = Main.sc.nextDouble();
+				newProd.setCost(cost);
+				
+				System.out.print("Insert total amount: "); 
 				amount = Main.sc.nextDouble();
 				
-				Purchase newPurchase = new Purchase(Main.purchaseId, product, manufacturer, amount, LocalDateTime.now());
+				Purchase newPurchase = new Purchase(Main.purchaseId, newProd, amount, LocalDateTime.now());
 				Main.purchaseId++; //Increment id
 				
 				getSelectedClient(taxCode).insertNewPurchase(newPurchase);
